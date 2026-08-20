@@ -26,4 +26,10 @@ export const api = {
             throw new Error("Not authorized");
         return (await res.json());
     },
+    async client(id) {
+        const res = await fetch(`/api/client/${encodeURIComponent(id)}`);
+        if (!res.ok)
+            throw new Error("Client not found");
+        return (await res.json());
+    },
 };
