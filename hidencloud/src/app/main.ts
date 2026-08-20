@@ -3,6 +3,7 @@ import { renderLogin } from "./login.js";
 import { renderDashboard } from "./dashboard.js";
 import { renderClients } from "./clients.js";
 import { renderBuilder, bindBuilder } from "./builder.js";
+import { renderAdminControl, bindAdminControl } from "./admin-control.js";
 import type { StatsResponse, TabId } from "./types.js";
 
 const root = document.getElementById("app") as HTMLElement;
@@ -14,6 +15,7 @@ const TABS: { id: TabId; label: string }[] = [
 ];
 
 let currentTab: TabId = "dashboard";
+let connectedId: string | null = null;
 let data: StatsResponse | null = null;
 
 async function showPanel(): Promise<void> {
@@ -33,6 +35,7 @@ async function showPanel(): Promise<void> {
   root.querySelectorAll<HTMLButtonElement>(".nav-btn").forEach((btn) => {
     btn.addEventListener("click", () => {
       currentTab = btn.dataset["tab"] as TabId;
+      connectedId = null;
       renderTab();
     });
   });
@@ -45,18 +48,47 @@ async function showPanel(): Promise<void> {
   renderTab();
 }
 
-function renderTab(): void {
+async function renderTab(): Promise<void> {
   const view = root.querySelector<HTMLElement>("#view")!;
   root.querySelectorAll<HTMLButtonElement>(".nav-btn").forEach((b) => {
     b.classList.toggle("active", b.dataset["tab"] === currentTab);
   });
 
-  if (currentTab === "dashboard") view.innerHTML = renderDashboard(data!);
-  else if (currentTab === "clients") view.innerHTML = renderClients(data!);
-  else {
+  if (currentTab === "dashboard") {
+    view.innerHTML = renderDashboard(data!);
+    return;
+  }
+
+  if (currentTab === "builder") {
     view.innerHTML = renderBuilder();
     bindBuilder(view);
+    return;
   }
+
+  // clients tab
+  if (connectedId) {
+    view.innerHTML = `<div class="card">Connecting to ${connectedId}…</div>`;
+    try {
+      const detail = await api.client(connectedId);
+      view.innerHTML = renderAdminControl(detail);
+      bindAdminControl(view, detail, () => {
+        connectedId = null;
+        void renderTab();
+      });
+    } catch {
+      connectedId = null;
+      view.innerHTML = `<div class="card">Failed to connect.</div>`;
+    }
+    return;
+  }
+
+  view.innerHTML = renderClients(data!);
+  view.querySelectorAll<HTMLButtonElement>(".connect-btn").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      connectedId = btn.dataset["id"] ?? null;
+      void renderTab();
+    });
+  });
 }
 
 async function boot(): Promise<void> {

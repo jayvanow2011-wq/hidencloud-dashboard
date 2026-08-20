@@ -180,3 +180,54 @@ input[type="range"] { padding: 0; margin-bottom: 8px; }
   .builder { grid-template-columns: 1fr; }
   .main { padding: 20px; }
 }
+
+/* Analytics + admin control */
+.delta.ok { color: var(--accent-2); }
+.delta.warn { color: var(--danger); }
+
+.bar { display: flex; height: 14px; border-radius: 8px; overflow: hidden; background: var(--surface-2); border: 1px solid var(--border); }
+.bar-online { background: linear-gradient(90deg, var(--accent-2), #6ff0c4); }
+.bar-offline { background: linear-gradient(90deg, var(--danger), #ff8a9c); }
+.legend { display: flex; gap: 16px; margin-top: 12px; color: var(--muted); font-size: 13px; }
+.legend i { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 6px; vertical-align: middle; }
+.dot-online { background: var(--accent-2); }
+.dot-offline { background: var(--danger); }
+
+.badge.online { color: var(--accent-2); border-color: rgba(41,211,162,0.35); display:inline-flex; align-items:center; gap:6px; }
+.badge.offline { color: var(--muted); }
+.badge .pulse { width: 8px; height: 8px; border-radius: 50%; background: var(--accent-2); box-shadow: 0 0 0 0 rgba(41,211,162,0.7); animation: pulse 1.6s infinite; }
+@keyframes pulse { 0%{box-shadow:0 0 0 0 rgba(41,211,162,0.6)} 70%{box-shadow:0 0 0 8px rgba(41,211,162,0)} 100%{box-shadow:0 0 0 0 rgba(41,211,162,0)} }
+
+.connect-btn { padding: 7px 14px; font-size: 13px; width: auto; }
+.muted { color: var(--muted); font-size: 13px; }
+
+.ac-header { display:flex; align-items:center; gap:20px; margin-bottom:20px; }
+.ac-title h1 { margin: 0; }
+.ac-title .page-sub { margin: 2px 0 0; display:flex; align-items:center; gap:10px; }
+
+.ac-tabs { display:flex; gap:6px; margin: 24px 0 16px; border-bottom: 1px solid var(--border); }
+.ac-tab { background:transparent; border:0; color:var(--muted); padding:10px 16px; font-size:14px; cursor:pointer; border-bottom:2px solid transparent; }
+.ac-tab:hover { color: var(--text); }
+.ac-tab.active { color: var(--text); border-bottom-color: var(--accent); }
+
+.viewer-toolbar { display:flex; align-items:center; gap:10px; margin-bottom:12px; }
+.viewer-frame { position:relative; aspect-ratio: 16/9; background:#05070c; border:1px solid var(--border); border-radius:10px; overflow:hidden; }
+.viewer-desktop { position:absolute; inset:0; background: linear-gradient(135deg,#0a2a5c,#123a86); padding:16px; display:flex; flex-direction:column; justify-content:space-between; }
+.fake-window { background: rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.15); border-radius:8px; width:60%; max-width:360px; }
+.fake-title { padding:6px 10px; background: rgba(0,0,0,0.35); border-radius:8px 8px 0 0; font-size:12px; }
+.fake-body { padding:12px; font-size:13px; line-height:1.6; }
+.fake-body p { margin:0; }
+.fake-taskbar { align-self:flex-end; width:100%; display:flex; justify-content:space-between; background: rgba(0,0,0,0.4); padding:6px 12px; border-radius:6px; font-size:12px; }
+.scanlines { position:absolute; inset:0; background: repeating-linear-gradient(0deg, rgba(255,255,255,0.03) 0 1px, transparent 1px 3px); pointer-events:none; }
+
+.viewer-frame.camera { background:#000; }
+.cam-noise { position:absolute; inset:0; background: radial-gradient(circle at 30% 40%, #333, #000 70%); opacity:0.9; animation: flicker 3s infinite; }
+@keyframes flicker { 0%,100%{opacity:0.9} 50%{opacity:0.75} }
+.cam-overlay { position:absolute; inset:0; padding:14px; display:flex; justify-content:space-between; align-items:flex-start; color:#fff; font-size:12px; }
+.rec { display:inline-flex; align-items:center; gap:6px; color: var(--danger); font-weight:700; }
+.rec i { width:10px; height:10px; border-radius:50%; background: var(--danger); animation: pulse 1.4s infinite; }
+
+.shell-out { font-family: ui-monospace, Menlo, monospace; font-size:13px; white-space: pre-wrap; background:#05070c; border:1px solid var(--border); border-radius:8px; padding:12px; height:280px; overflow:auto; }
+.shell-form { display:flex; align-items:center; gap:8px; margin-top:10px; font-family: ui-monospace, Menlo, monospace; }
+.shell-form .prompt { color: var(--accent-2); }
+.shell-form input { margin:0; }
