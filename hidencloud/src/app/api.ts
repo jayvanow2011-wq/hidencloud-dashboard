@@ -1,4 +1,4 @@
-import type { ClientDetailResponse, StatsResponse } from "./types.js";
+import type { ClientDetailResponse, StatsResponse, LogEntry } from "./types.js";
 
 async function post<T>(url: string, body?: unknown): Promise<T> {
   const res = await fetch(url, {
@@ -31,5 +31,17 @@ export const api = {
     const res = await fetch(`/api/client/${encodeURIComponent(id)}`);
     if (!res.ok) throw new Error("Client not found");
     return (await res.json()) as ClientDetailResponse;
+  },
+  async logs(): Promise<LogEntry[]> {
+    const res = await fetch("/api/logs");
+    if (!res.ok) throw new Error("Not authorized");
+    const data = (await res.json()) as { ok: boolean; logs: LogEntry[] };
+    return data.logs;
+  },
+  clearLogs() {
+    return post<{ ok: true }>("/api/logs");
+  },
+  sendCommand(clientId: string, action: string) {
+    return post<{ ok: true; result: string }>(`/api/command/${encodeURIComponent(clientId)}`, { action });
   },
 };
