@@ -1,14 +1,16 @@
-# Welcome to your Lovable project
+# Hidencloud Dashboard
+
+create me a typescript website that i can host on a nodejs server with server.js and packge.json on folder hidencloud/server.js and src/app things etc dark theme style website in BASE and login is jayjay and pass jayjay100! and dashboard shows 3 tabs 1 dashboard 2 clients 3 builder
 
 This project was built with [Lovable](https://lovable.dev).
 
 ## Build with Lovable
 
-Open your project in the [Lovable editor](https://lovable.dev) and keep building.
+Continue developing this project in the [Lovable editor](https://lovable.dev/projects/71b66c95-bb28-4dca-a0c2-eca2831c96ee).
 
 - **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: connect the project to GitHub and every change made in Lovable is committed straight to your repository.
-- **Full ownership**: this code is yours. Push to your repository and your changes sync back into Lovable, ready for your next prompt.
+- **Stay in sync**: every change made in Lovable is committed straight to this repository.
+- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
 
 ## Development
 
@@ -20,10 +22,3 @@ cd <repository-name>
 npm i
 npm run dev
 ```
-
-## Built with
-
-- TanStack Start
-- TypeScript
-- React
-- Tailwind CSS
